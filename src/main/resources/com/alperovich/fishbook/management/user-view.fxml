@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alperovich.fishbook.management.controllers.UserController">
+    <VBox layoutX="11.0" layoutY="88.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+        <Label alignment="BOTTOM_CENTER" text="Id">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="10.0" text="First Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="27.0" text="Last Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="44.0" text="Username">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="61.0" text="Password">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </VBox>
+    <VBox layoutX="92.0" layoutY="88.0" prefHeight="200.0" prefWidth="184.0" spacing="14.0">
+        <TextField fx:id="textFieldId" />
+        <TextField fx:id="textFieldFirstName" />
+        <TextField fx:id="textFieldLastName" />
+        <TextField fx:id="textFieldUsername" />
+        <TextField fx:id="textFieldPassword" layoutX="10.0" layoutY="10.0" />
+    </VBox>
+    <Label alignment="CENTER" layoutX="-2.0" prefHeight="78.0" prefWidth="806.0" style="-fx-background-color: #3dbda4;" text="Users Management Console">
+        <font>
+          <Font name="Calibri Bold" size="24.0" />
+        </font>
+    </Label>
+    <ImageView fitHeight="68.0" fitWidth="92.0" layoutX="9.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../../../pictures/FishBooking_free-file.png" />
+    </ImageView>
+    <TableView fx:id="tableViewUsers" layoutX="292.0" layoutY="129.0" onMouseClicked="#handleMouseClick" prefHeight="262.0" prefWidth="506.0">
+      <columns>
+          <TableColumn fx:id="columnId" prefWidth="50.0" text="Id" />
+          <TableColumn fx:id="columnFirstName" prefWidth="113.0" text="First Name" />
+          <TableColumn fx:id="columnLastName" prefWidth="112.0" text="Last Name" />
+          <TableColumn fx:id="columnUsername" prefWidth="110.0" text="Username" />
+          <TableColumn fx:id="columnPassword" prefWidth="120.0" text="Password" />
+      </columns>
+    </TableView>
+    <Button fx:id="insertButton" layoutX="59.0" layoutY="298.0" mnemonicParsing="false" onAction="#insertButtonOnAction" prefHeight="25.0" prefWidth="67.0" text="Insert" />
+    <Button fx:id="updateButton" layoutX="134.0" layoutY="298.0" mnemonicParsing="false" onAction="#updateButtonOnAction" prefHeight="25.0" prefWidth="67.0" text="Update" />
+    <Button fx:id="deleteButton" layoutX="209.0" layoutY="298.0" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefHeight="25.0" prefWidth="67.0" text="Delete" />
+    <Button fx:id="cancelButton" layoutX="134.0" layoutY="350.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="25.0" prefWidth="67.0" text="Cancel" />
+   <Label layoutX="292.0" layoutY="91.0" text="Search">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <TextField fx:id="textFieldSearching" layoutX="349.0" layoutY="89.0" onAction="#searchUserOnAction" prefHeight="25.0" prefWidth="450.0" promptText="search text" />
+</AnchorPane>

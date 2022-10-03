@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="843.0" prefWidth="1094.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alperovich.fishbook.management.controllers.OrderController">
+    <Label alignment="CENTER" layoutX="-2.0" prefHeight="73.0" prefWidth="1101.0" style="-fx-background-color: #3dbda4;" text="Order">
+        <font>
+          <Font name="Calibri Bold" size="31.0" />
+        </font>
+    </Label>
+    <ImageView fitHeight="58.0" fitWidth="65.0" layoutX="20.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../../../../pictures/FishBooking_free-file.png" />
+    </ImageView>
+    <VBox layoutX="203.0" layoutY="98.0" prefHeight="268.0" prefWidth="112.0" spacing="7.0">
+        <Label text="First Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="10.0" text="Last Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="10.0" text="Phone">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="112.0" text="Lake Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="10.0" layoutY="129.0" text="Service Name">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+      <Label layoutX="10.0" layoutY="124.0" text="Service Info">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="10.0" layoutY="466.0" text="Price">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="10.0" layoutY="238.0" text="CheckIn">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="10.0" layoutY="181.0" text="CheckOut">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+    </VBox>
+    <VBox layoutX="325.0" layoutY="98.0" prefHeight="236.0" prefWidth="536.0" spacing="2.0">
+        <TextField fx:id="tfOrderFirstName" prefHeight="6.0" prefWidth="536.0" />
+        <TextField fx:id="tfOrderLastName" layoutX="10.0" layoutY="10.0" />
+        <TextField fx:id="tfOrderPhone" />
+      <TextField fx:id="tfLakeName" layoutX="10.0" layoutY="124.0" />
+      <TextField fx:id="tfOrderServiceName" layoutX="10.0" layoutY="124.0" />
+      <TextField fx:id="tfOrderServiceInfo" layoutX="10.0" layoutY="238.0" />
+      <TextField fx:id="tfOrderPrice" layoutX="10.0" layoutY="295.0" />
+      <TextField fx:id="tfOrderCheckIn" layoutX="10.0" layoutY="352.0" />
+      <TextField fx:id="tfOrderCheckOut" layoutX="10.0" layoutY="409.0" />
+    </VBox>
+    <Button fx:id="orderLoadButton" layoutX="466.0" layoutY="689.0" mnemonicParsing="false" onMouseClicked="#onLoadButtonClick" prefHeight="42.0" prefWidth="165.0" text="Load">
+        <font>
+          <Font size="18.0" />
+        </font>
+    </Button>
+    <Button fx:id="OrderBackButton" layoutX="834.0" layoutY="787.0" mnemonicParsing="false" onAction="#OnBackButtonClick" prefHeight="42.0" prefWidth="165.0" text="Back">
+        <font>
+          <Font size="18.0" />
+        </font>
+    </Button>
+   <TableView fx:id="tvLoadOrder" layoutX="11.0" layoutY="378.0" onMouseClicked="#handleMouseClick" prefHeight="252.0" prefWidth="1079.0">
+      <columns>
+         <TableColumn fx:id="columnOrderId" prefWidth="43.0" text="id" />
+         <TableColumn fx:id="columnOrderFirstName" prefWidth="92.0" text="First Name" />
+         <TableColumn fx:id="columnOrderLastName" prefWidth="101.0" text="Last Name" />
+         <TableColumn fx:id="columnOrderPhone" prefWidth="107.0" text="Phone" />
+         <TableColumn fx:id="columnOrderLake" prefWidth="91.0" text="Lake" />
+         <TableColumn fx:id="columnOrderServiceName" prefWidth="126.0" text="Service Name" />
+         <TableColumn fx:id="columnOrderServiceInfo" prefWidth="105.0" text="Service Info" />
+         <TableColumn fx:id="columnOrderPrice" prefWidth="84.0" text="Price" />
+         <TableColumn fx:id="columnOrderCheckIn" minWidth="0.0" prefWidth="114.0" text="CheckIn" />
+         <TableColumn fx:id="columnOrderCheckOut" prefWidth="130.0" text="CheckOut" />
+         <TableColumn fx:id="columnOrderTotal" prefWidth="82.0" text="Total" />
+      </columns>
+   </TableView>
+   <Button fx:id="orderSaveButton" layoutX="466.0" layoutY="745.0" mnemonicParsing="false" onMouseClicked="#onSaveButtonClick" prefHeight="42.0" prefWidth="165.0" text="Save">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Button>
+   <Label layoutX="890.0" layoutY="650.0" text="Total">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tfOrderTotal" layoutX="939.0" layoutY="648.0" />
+</AnchorPane>

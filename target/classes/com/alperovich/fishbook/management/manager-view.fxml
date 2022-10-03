@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="800.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alperovich.fishbook.management.controllers.ManagerController">
+   <VBox layoutX="23.0" layoutY="134.0" prefHeight="152.0" prefWidth="120.0" spacing="20.0">
+      <Label layoutX="10.0" layoutY="94.0" text="Id">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+      <Label prefHeight="22.0" prefWidth="134.0" text="First Name">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+      <Label text="LastName">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+      <Label text="Phone">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <VBox layoutX="153.0" layoutY="133.0" prefHeight="110.0" prefWidth="272.0" spacing="18.0">
+      <TextField fx:id="tfCustomerId" editable="false" layoutX="10.0" layoutY="96.0" prefWidth="272.0" />
+      <TextField fx:id="tfCustomerName" prefHeight="25.0" prefWidth="258.0" />
+      <TextField fx:id="tfCustomerLastName" />
+      <TextField fx:id="tfCustomerPhone" prefWidth="272.0" />
+   </VBox>
+   <Label alignment="CENTER" layoutY="10.0" prefHeight="73.0" prefWidth="1317.0" style="-fx-background-color: #3dbda4;" text="Customer Service">
+      <font>
+         <Font name="Calibri Bold" size="31.0" />
+      </font>
+   </Label>
+   <ImageView fitHeight="51.0" fitWidth="71.0" layoutX="24.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../../../../pictures/FishBooking_free-file.png" />
+   </ImageView>
+   <Label alignment="CENTER" layoutX="20.0" layoutY="93.0" prefHeight="33.0" prefWidth="407.0" style="-fx-background-color: #3dbda4;" text="Customer Info">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER" layoutX="438.0" layoutY="93.0" prefHeight="33.0" prefWidth="285.0" style="-fx-background-color: #3dbda4;" text="Choose Lake">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <ChoiceBox fx:id="choiceBoxLake" layoutX="438.0" layoutY="134.0" onDragDetected="#showServiceByLake" prefHeight="25.0" prefWidth="285.0" />
+   <TableView fx:id="tvServices" layoutX="738.0" layoutY="133.0" prefHeight="233.0" prefWidth="565.0">
+      <columns>
+         <TableColumn fx:id="columnChooseServiceName" prefWidth="202.0" text="Service Name" />
+         <TableColumn fx:id="columnChooseServiceInfo" minWidth="0.0" prefWidth="297.0" text="Service Info" />
+         <TableColumn fx:id="columnChoosePrice" minWidth="0.0" prefWidth="65.0" text="Price" />
+      </columns>
+   </TableView>
+   <Label alignment="CENTER" layoutX="738.0" layoutY="93.0" prefHeight="33.0" prefWidth="565.0" style="-fx-background-color: #3dbda4;" text="Choose service">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <Label alignment="CENTER" layoutX="438.0" layoutY="171.0" prefHeight="33.0" prefWidth="285.0" style="-fx-background-color: #3dbda4;" text="CheckIn Date">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <DatePicker fx:id="datePickerCheckIn" layoutX="438.0" layoutY="215.0" prefHeight="25.0" prefWidth="285.0" />
+   <Label alignment="CENTER" layoutX="438.0" layoutY="263.0" prefHeight="33.0" prefWidth="285.0" style="-fx-background-color: #3dbda4;" text="CheckOut Date">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <DatePicker fx:id="datePickerCheckOut" layoutX="438.0" layoutY="307.0" prefHeight="25.0" prefWidth="285.0" />
+   <Button fx:id="addOrderButton" layoutX="956.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="25.0" prefWidth="188.0" text="Add to Order">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Label alignment="CENTER" layoutY="426.0" prefHeight="33.0" prefWidth="1317.0" style="-fx-background-color: #3dbda4;" text="Order Details">
+      <font>
+         <Font name="Calibri Bold" size="18.0" />
+      </font>
+   </Label>
+   <TableView fx:id="tvOrder" layoutY="459.0" onMouseClicked="#handleMouseClick" prefHeight="252.0" prefWidth="1317.0">
+      <columns>
+         <TableColumn fx:id="columnOrderId" prefWidth="43.0" text="id" />
+         <TableColumn fx:id="columnOrderFirstName" prefWidth="136.0" text="First Name" />
+         <TableColumn fx:id="columnOrderLastName" prefWidth="127.0" text="Last Name" />
+         <TableColumn fx:id="columnOrderPhone" prefWidth="145.0" text="Phone" />
+         <TableColumn fx:id="columnOrderLake" prefWidth="111.0" text="Lake" />
+         <TableColumn fx:id="columnOrderServiceName" prefWidth="168.0" text="Service Name" />
+         <TableColumn fx:id="columnOrderServiceInfo" prefWidth="240.0" text="Service Info" />
+         <TableColumn fx:id="columnOrderPrice" prefWidth="99.0" text="Price" />
+         <TableColumn fx:id="columnOrderCheckIn" minWidth="0.0" prefWidth="115.0" text="CheckIn" />
+         <TableColumn fx:id="columnOrderCheckOut" prefWidth="130.0" text="CheckOut" />
+      </columns>
+   </TableView>
+   <Button fx:id="editButton" layoutX="14.0" layoutY="740.0" mnemonicParsing="false" onAction="#editButtonOnAction" prefHeight="25.0" prefWidth="73.0" text="Edit">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button fx:id="deleteButton" layoutX="96.0" layoutY="740.0" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefHeight="25.0" prefWidth="73.0" text="Delete">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button fx:id="clearButton" layoutX="1216.0" layoutY="381.0" mnemonicParsing="false" onAction="#clearButtonOnAction" prefHeight="25.0" prefWidth="87.0" text="Clear">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button fx:id="exitButton" layoutX="1137.0" layoutY="740.0" mnemonicParsing="false" onAction="#exitButtonOnAction" prefHeight="25.0" prefWidth="133.0" text="Exit ">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Label layoutX="17.0" layoutY="390.0" prefHeight="25.0" prefWidth="57.0" text="Search">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tfKeywordSearchOrder" layoutX="74.0" layoutY="390.0" onAction="#searchCustomerServiceOnAction" prefHeight="25.0" prefWidth="651.0" />
+   <Button fx:id="loadFromFileButton" layoutX="310.0" layoutY="740.0" mnemonicParsing="false" onMouseClicked="#loadFromFileButton" prefHeight="30.0" prefWidth="120.0" text="Load from File">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Button fx:id="saveToFileButton" layoutX="179.0" layoutY="740.0" mnemonicParsing="false" onMouseClicked="#saveToFileButton" prefHeight="30.0" prefWidth="120.0" text="Save to File">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
+   <Label layoutX="613.0" layoutY="743.0" prefHeight="22.0" prefWidth="87.0" text="Total Price">
+      <font>
+         <Font name="Calibri" size="18.0" />
+      </font>
+   </Label>
+   <TextField fx:id="tfTotalPrice" layoutX="700.0" layoutY="742.0" prefHeight="25.0" prefWidth="133.0" />
+</AnchorPane>
