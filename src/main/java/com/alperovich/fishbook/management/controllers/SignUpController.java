@@ -1,7 +1,7 @@
 package com.alperovich.fishbook.management.controllers;
 
 import com.alperovich.fishbook.management.DB.DBConnector;
-import com.alperovich.fishbook.management.utils.LoginCounter;
+import com.alperovich.fishbook.management.utils.WelcomeThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,7 +72,7 @@ public class SignUpController {
     }
 
     public void WelcomeScreen() {
-        Thread welcomeScreen = new LoginCounter();
+        Thread welcomeScreen = new WelcomeThread();
         welcomeScreen.setName("Welcome screen");
         welcomeScreen.start();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

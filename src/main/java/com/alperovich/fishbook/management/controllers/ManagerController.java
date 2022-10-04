@@ -4,6 +4,7 @@ import com.alperovich.fishbook.management.DAO.impl.CustomerDaoImpl;
 import com.alperovich.fishbook.management.DAO.impl.PartnerDaoImpl;
 import com.alperovich.fishbook.management.models.Customer;
 import com.alperovich.fishbook.management.models.Partner;
+import com.alperovich.fishbook.management.utils.ManagerUtils;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -105,6 +106,7 @@ public class ManagerController implements Initializable {
     CustomerDaoImpl cdao = new CustomerDaoImpl();
     PartnerDaoImpl pdao = new PartnerDaoImpl();
     FileChooser fileChooser = new FileChooser();
+    ManagerUtils mutils = new ManagerUtils();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -115,29 +117,16 @@ public class ManagerController implements Initializable {
     }
 
     public void showServiceByLake(ActionEvent event) {
-        String lakeName = choiceBoxLake.getValue();
-        ObservableList<Partner> serviceByLake = pdao.getServiceByLake(lakeName);
-        columnChooseServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-        columnChooseServiceInfo.setCellValueFactory(new PropertyValueFactory<>("serviceInfo"));
-        columnChoosePrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        tvServices.setItems(serviceByLake);
+        mutils.serviceByLake(choiceBoxLake, columnChooseServiceName, columnChooseServiceInfo, columnChoosePrice, tvServices);
     }
 
     List<Customer> customerList = new ArrayList<>();
 
     public void saveButtonOnAction() {
-        Customer customer = new Customer();
-        customer.setFirstName(tfCustomerName.getText());
-        customer.setLastName(tfCustomerLastName.getText());
-        customer.setPhone(tfCustomerPhone.getText());
-        customer.setLakeName(choiceBoxLake.getValue());
-        customer.setServiceName(tvServices.getSelectionModel().getSelectedItem().getServiceName());
-        customer.setServiceInfo(tvServices.getSelectionModel().getSelectedItem().getServiceInfo());
-        customer.setPrice(tvServices.getSelectionModel().getSelectedItem().getPrice());
-        customer.setCheckIn(Date.valueOf(datePickerCheckIn.getValue()));
-        customer.setCheckOut(Date.valueOf(datePickerCheckOut.getValue()));
-        cdao.createCustomer(customer);
-        customerList.add(customer);
+        mutils.insertCustomer(tfCustomerName, tfCustomerLastName, tfCustomerPhone,
+                choiceBoxLake, tvServices, datePickerCheckIn, datePickerCheckOut);
+        customerList.add(mutils.insertCustomer(tfCustomerName, tfCustomerLastName, tfCustomerPhone,
+                choiceBoxLake, tvServices, datePickerCheckIn, datePickerCheckOut));
         showCustomersByName();
     }
 
@@ -241,7 +230,7 @@ public class ManagerController implements Initializable {
         tfCustomerId.requestFocus();
     }
 
-    public void searchCustomerServiceOnAction(ActionEvent event) {
+    public void searchCustomerServiceOnAction() {
         FilteredList<Customer> filteredList = new FilteredList<>(cdao.getAllCustomers(), b -> true);
         tfKeywordSearchOrder.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(Customer -> {

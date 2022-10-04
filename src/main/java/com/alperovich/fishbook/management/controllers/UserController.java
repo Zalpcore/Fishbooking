@@ -2,6 +2,7 @@ package com.alperovich.fishbook.management.controllers;
 
 import com.alperovich.fishbook.management.DAO.impl.UserDaoImpl;
 import com.alperovich.fishbook.management.models.User;
+import com.alperovich.fishbook.management.utils.UserUtils;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -61,82 +62,39 @@ public class UserController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    UserDaoImpl udao = new UserDaoImpl();
+
+    UserUtils utils = new UserUtils();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        showUsers();
+        utils.showUsers(columnId, columnFirstName, columnLastName, columnUsername, columnPassword, tableViewUsers);
     }
 
     public void insertButtonOnAction() {
-        User user = new User();
-        user.setFirstName(textFieldFirstName.getText());
-        user.setLastName(textFieldLastName.getText());
-        user.setUserName(textFieldUsername.getText());
-        user.setPassword(textFieldPassword.getText());
-        udao.createUser(user);
-        clearUserForm();
-        showUsers();
+        utils.insertUser(textFieldFirstName, textFieldLastName, textFieldUsername, textFieldPassword);
+        utils.clearForm(textFieldId, textFieldFirstName, textFieldLastName, textFieldUsername, textFieldPassword);
+        utils.showUsers(columnId, columnFirstName, columnLastName, columnUsername, columnPassword, tableViewUsers);
     }
 
     public void updateButtonOnAction() {
-        User user = new User();
-        user.setFirstName(textFieldFirstName.getText());
-        user.setLastName(textFieldLastName.getText());
-        user.setUserName(textFieldUsername.getText());
-        user.setPassword(textFieldPassword.getText());
-        user.setId(Integer.parseInt(textFieldId.getText()));
-        udao.updateUser(user);
-        clearUserForm();
-        showUsers();
+        utils.updateUser(textFieldFirstName, textFieldLastName, textFieldUsername, textFieldPassword, textFieldId);
+        utils.clearForm(textFieldId, textFieldFirstName, textFieldLastName, textFieldUsername, textFieldPassword);
+        utils.showUsers(columnId, columnFirstName, columnLastName, columnUsername, columnPassword, tableViewUsers);
     }
 
     public void deleteButtonOnAction() {
-        int id = Integer.parseInt(textFieldId.getText());
-        udao.deleteUserById(id);
-        clearUserForm();
-        showUsers();
+        utils.deleteUser(textFieldId);
+        utils.clearForm(textFieldId, textFieldFirstName, textFieldLastName, textFieldUsername, textFieldPassword);
+        utils.showUsers(columnId, columnFirstName, columnLastName, columnUsername, columnPassword, tableViewUsers);
     }
 
     public void searchUserOnAction() {
-        FilteredList<User> filteredList = new FilteredList<>(udao.getAllUsers(), b -> true);
-        textFieldSearching.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(User -> {
-                if (newValue.isEmpty() || newValue.isBlank()) {
-                    return true;
-                }
-                String searchKeyword = newValue.toLowerCase();
-
-                if (User.getFirstName().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (User.getLastName().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (User.getUserName().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (User.getPassword().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-        SortedList<User> sortedList = new SortedList<>(filteredList);
-        sortedList.comparatorProperty().bind(tableViewUsers.comparatorProperty());
-        tableViewUsers.setItems(sortedList);
-    }
-
-    public void showUsers() {
-        ObservableList<User> userList = udao.getAllUsers();
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        columnLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        columnUsername.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        columnPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
-        tableViewUsers.setItems(userList);
+        utils.searchUser(textFieldSearching, tableViewUsers);
     }
 
     public void cancelButtonOnAction(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/alperovich/fishbook/management/admin-view.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
+                "/com/alperovich/fishbook/management/admin-view.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -144,22 +102,7 @@ public class UserController implements Initializable {
     }
 
     public void handleMouseClick() {
-        User user = tableViewUsers.getSelectionModel().getSelectedItem();
-        if (user != null) {
-            textFieldId.setText(Integer.toString(user.getId()));
-            textFieldFirstName.setText(user.getFirstName());
-            textFieldLastName.setText(user.getLastName());
-            textFieldUsername.setText(user.getUserName());
-            textFieldPassword.setText(user.getPassword());
-        }
-    }
-
-    public void clearUserForm() {
-        textFieldId.setText("");
-        textFieldFirstName.setText("");
-        textFieldLastName.setText("");
-        textFieldUsername.setText("");
-        textFieldPassword.setText("");
-        textFieldId.requestFocus();
+        utils.fillForm(tableViewUsers, textFieldId, textFieldFirstName,
+                textFieldLastName, textFieldUsername, textFieldPassword);
     }
 }
