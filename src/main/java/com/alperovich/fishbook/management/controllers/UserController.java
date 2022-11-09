@@ -1,11 +1,7 @@
 package com.alperovich.fishbook.management.controllers;
 
-import com.alperovich.fishbook.management.DAO.impl.UserDaoImpl;
 import com.alperovich.fishbook.management.models.User;
-import com.alperovich.fishbook.management.utils.UserUtils;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
+import com.alperovich.fishbook.management.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -63,7 +58,7 @@ public class UserController implements Initializable {
     private Scene scene;
     private Parent root;
 
-    UserUtils utils = new UserUtils();
+    UserService utils = new UserService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

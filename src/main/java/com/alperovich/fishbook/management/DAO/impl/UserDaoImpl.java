@@ -1,7 +1,7 @@
 package com.alperovich.fishbook.management.DAO.impl;
 
 
-import com.alperovich.fishbook.management.DAO.UserDAO;
+import com.alperovich.fishbook.management.DAO.UserDao;
 import com.alperovich.fishbook.management.DB.DBConnector;
 import com.alperovich.fishbook.management.models.User;
 import javafx.collections.FXCollections;
@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDaoImpl implements UserDAO {
+public class UserDaoImpl implements UserDao {
 
 
     private User buildUser(ResultSet rs) throws SQLException {

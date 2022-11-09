@@ -1,4 +1,4 @@
-package com.alperovich.fishbook.management.utils;
+package com.alperovich.fishbook.management.services;
 
 import com.alperovich.fishbook.management.DAO.impl.UserDaoImpl;
 import com.alperovich.fishbook.management.models.User;
@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class UserUtils {
+public class UserService {
 
     static UserDaoImpl udao = new UserDaoImpl();
 

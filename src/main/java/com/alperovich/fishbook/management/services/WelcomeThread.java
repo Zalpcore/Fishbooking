@@ -1,4 +1,4 @@
-package com.alperovich.fishbook.management.utils;
+package com.alperovich.fishbook.management.services;
 
 public class WelcomeThread extends Thread {
 

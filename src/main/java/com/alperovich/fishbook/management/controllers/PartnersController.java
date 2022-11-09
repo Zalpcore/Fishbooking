@@ -2,6 +2,7 @@ package com.alperovich.fishbook.management.controllers;
 
 import com.alperovich.fishbook.management.DAO.impl.PartnerDaoImpl;
 import com.alperovich.fishbook.management.models.Partner;
+import com.alperovich.fishbook.management.services.PartnerService;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -66,8 +67,7 @@ public class PartnersController implements Initializable {
     private Scene scene;
     private Parent root;
 
-    PartnerDaoImpl pdao = new PartnerDaoImpl();
-
+    PartnerService pser = new PartnerService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,37 +75,20 @@ public class PartnersController implements Initializable {
     }
 
     public void saveButtonOnAction() {
-        Partner partner = new Partner();
-        partner.setCompanyName(tfCompanyName.getText());
-        partner.setAddress(tfAddress.getText());
-        partner.setPhone(tfPhone.getText());
-        partner.setLakeName(tfLakeName.getText());
-        partner.setServiceName(tfServiceName.getText());
-        partner.setServiceInfo(tfServiceInfo.getText());
-        partner.setPrice(Double.parseDouble(tfPrice.getText()));
-        pdao.createPartner(partner);
+        pser.savePartner(tfCompanyName, tfAddress, tfPhone, tfLakeName, tfServiceName, tfServiceInfo, tfPrice);
         clearPartnerForm();
         showPartners();
     }
 
-    public void updateButtonOnAction(ActionEvent event) {
-        Partner partner = new Partner();
-        partner.setCompanyName(tfCompanyName.getText());
-        partner.setAddress(tfAddress.getText());
-        partner.setPhone(tfPhone.getText());
-        partner.setLakeName(tfLakeName.getText());
-        partner.setServiceName(tfServiceName.getText());
-        partner.setServiceInfo(tfServiceInfo.getText());
-        partner.setPrice(Double.parseDouble(tfPrice.getText()));
-        partner.setId(Integer.parseInt(tfPartnerId.getText()));
-        pdao.updatePartner(partner);
+    public void updateButtonOnAction() {
+        pser.updatePartner(tfCompanyName, tfAddress, tfPhone, tfLakeName,
+                tfServiceName, tfServiceInfo, tfPrice, tfPartnerId);
         clearPartnerForm();
         showPartners();
     }
 
-    public void deleteButtonOnAction(ActionEvent event) {
-        int id = Integer.parseInt(tfPartnerId.getText());
-        pdao.deletePartnerById(id);
+    public void deleteButtonOnAction() {
+        pser.deletePartner(tfPartnerId);
         clearPartnerForm();
         showPartners();
     }
@@ -118,73 +101,22 @@ public class PartnersController implements Initializable {
         stage.show();
     }
 
-    public void searchPartnersOnAction(ActionEvent event) {
-        FilteredList<Partner> filteredList = new FilteredList<>(pdao.getAllPartners(), b -> true);
-        textFieldSearching.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredList.setPredicate(Partner -> {
-                if (newValue.isEmpty() || newValue.isBlank()) {
-                    return true;
-                }
-                String searchKeyword = newValue.toLowerCase();
-
-                if (Partner.getCompanyName().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (Partner.getAddress().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (Partner.getPhone().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (Partner.getLakeName().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (Partner.getServiceName().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else if (Partner.getServiceInfo().toLowerCase().contains(searchKeyword)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-        });
-        SortedList<Partner> sortedList = new SortedList<>(filteredList);
-        sortedList.comparatorProperty().bind(tableViewPartners.comparatorProperty());
-        tableViewPartners.setItems(sortedList);
+    public void searchPartnersOnAction() {
+        pser.searchPartner(textFieldSearching, tableViewPartners);
     }
 
     public void showPartners() {
-        ObservableList<Partner> partnerList = pdao.getAllPartners();
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        columnCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
-        columnAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        columnPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        columnLake.setCellValueFactory(new PropertyValueFactory<>("lakeName"));
-        columnServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-        columnServiceInfo.setCellValueFactory(new PropertyValueFactory<>("serviceInfo"));
-        columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        tableViewPartners.setItems(partnerList);
+        pser.showPartners(columnId, columnCompany, columnAddress, columnPhone,
+                columnLake, columnServiceName, columnServiceInfo, columnPrice, tableViewPartners);
     }
 
     public void handleMouseClick() {
-        Partner partner = tableViewPartners.getSelectionModel().getSelectedItem();
-        if (partner != null) {
-            tfPartnerId.setText(Integer.toString(partner.getId()));
-            tfCompanyName.setText(partner.getCompanyName());
-            tfAddress.setText(partner.getAddress());
-            tfPhone.setText(partner.getPhone());
-            tfLakeName.setText(partner.getLakeName());
-            tfServiceName.setText(partner.getServiceName());
-            tfServiceInfo.setText(partner.getServiceInfo());
-            tfPrice.setText(Double.toString(partner.getPrice()));
-        }
+        pser.fillForm(tableViewPartners, tfPartnerId, tfCompanyName, tfAddress, tfPhone,
+                tfLakeName, tfServiceName, tfServiceInfo, tfPrice);
     }
 
     public void clearPartnerForm() {
-        tfPartnerId.setText("");
-        tfCompanyName.setText("");
-        tfAddress.setText("");
-        tfPhone.setText("");
-        tfLakeName.setText("");
-        tfServiceName.setText("");
-        tfServiceInfo.setText("");
-        tfPrice.setText("");
-        tfPartnerId.requestFocus();
+        pser.clearForm(tfPartnerId, tfCompanyName, tfAddress, tfPhone, tfLakeName,
+                tfServiceName, tfServiceInfo, tfPrice);
     }
 }
