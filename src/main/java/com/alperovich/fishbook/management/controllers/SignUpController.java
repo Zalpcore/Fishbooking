@@ -1,6 +1,7 @@
 package com.alperovich.fishbook.management.controllers;
 
 import com.alperovich.fishbook.management.DB.DBConnector;
+import com.alperovich.fishbook.management.services.WelcomeThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
